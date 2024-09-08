@@ -1,0 +1,33 @@
+{% extends 'cars_app/layout.html' %}
+{% block title %}
+Список моих автомобилей
+{% endblock %}
+
+{% block content %}
+<h1>Мои автомобили</h1>
+<div class="card">
+    {% if cars %}
+    <ul>
+        {% for car in cars %}
+        <li class="car-item">
+            <div class="car-info">
+                <h3>{{ car.make }} {{ car.model }}</h3>
+                <span class="year">{{ car.year }}</span>
+                {% if car.description %}
+                <p>{{ car.description }}</p>
+                {% endif %}
+                <small>Дата обновления: {{ car.updated_at|date:"d M Y H:i" }}</small>
+                <div class="action-buttons">
+                    <a class="btn btn-accept" href="{% url 'update_car' car.id %}">Изменить</a>
+                    <a class="btn btn-warn" href="{% url 'delete_car' car.id %}">Удалить</a>
+                </div>
+            </div>
+        </li>
+
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>У вас еще нет автомобилей.</p>
+    {% endif %}
+</div>
+{% endblock %}

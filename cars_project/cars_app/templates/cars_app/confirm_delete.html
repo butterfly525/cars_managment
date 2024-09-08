@@ -1,0 +1,31 @@
+{% extends 'cars_app/layout.html' %}
+{% load static %}
+
+{% block title %}
+Подтвердите удаление автомобиля
+{% endblock %}
+
+{% block content %}
+
+<h1>Подтвердите удаление автомобиля</h1>
+<div class="card">
+    <h4>Автомобиль:</h4>
+    <p><strong>Марка автомобиля:</strong> {{ car.make }}</p>
+    <p><strong>Модель автомобиля:</strong> {{ car.model }}</p>
+    <p><strong>Год выпуска автомобиля:</strong> {{ car.year }}</p>
+    {% if car.description %}
+    <p><strong>Описание автомобиля:</strong> {{ car.description }}</p>
+    {% endif %}
+    <p><strong>Дата обновления:</strong> {{ car.updated_at|date:"d M Y H:i" }}</p>
+
+    <div class="action-buttons">
+        <form action="{% url 'delete_car' car.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="DELETE">
+            <button class="btn btn-accept" type="submit">Удалить</button>
+        </form>
+        <a class="btn btn-warn" href="{% url 'my_cars' %}">Отмена</a>
+    </div>
+</div>
+
+{% endblock %}

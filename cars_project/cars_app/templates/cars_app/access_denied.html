@@ -1,0 +1,13 @@
+{% extends 'cars_app/layout.html' %}
+
+{% block title %}
+Доступ запрещен
+{% endblock %}
+{% block content %}
+
+<h1>Доступ запрещен</h1>
+<div class="card">
+    <p>{{ error }}</p>
+    <a href="{% url 'my_cars' %}">Мои автомобили</a>
+</div>
+{% endblock %}

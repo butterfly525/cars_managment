@@ -1,0 +1,15 @@
+{% extends 'cars_app/layout.html' %}
+
+{% block content %}
+<h1>Добавление нового автомобиля</h1>
+<div class="card">
+    <form method="post" action="{% url 'create_car' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="action-buttons">
+            <button class="btn btn-accept" type="submit">Сохранить</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}

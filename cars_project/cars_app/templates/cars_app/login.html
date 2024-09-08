@@ -1,0 +1,16 @@
+{% extends 'cars_app/layout.html' %}
+
+{% block title %}
+Авторизация
+{% endblock %}
+
+{% block content %}
+<h1>Вход в систему</h1>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-accept" type="submit">Войти</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'cars_app/css/style.css' %}">
+</head>
+
+<body>
+
+    <nav class="nav-bar">
+        <a href="{% url 'index' %}">ГЛАВНАЯ</a>
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'my_cars' %}">Мои автомобили</a>
+        <a href="{% url 'create_car' %}">Добавить автомобиль</a>
+        {% endif %}
+
+        <div>
+            {% if user.is_authenticated %}
+            <form action="{% url 'logout_site' %}" method="post">
+                {% csrf_token %}
+                <button class="btn auth-button">Выйти</button>
+            </form>
+            {% else %}
+            <a class="btn auth-button" href="{% url 'login_site' %}">Войти</a>
+            <a class="btn auth-button" href="{% url 'register_site' %}">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

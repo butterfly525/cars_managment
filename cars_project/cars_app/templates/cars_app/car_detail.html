@@ -1,0 +1,42 @@
+{% extends 'cars_app/layout.html' %}
+
+{% block title %}
+{{ car }}
+{% endblock %}
+
+{% block content %}
+<h1>Подробнее</h1>
+
+<div class="card">
+    <h4>Автомобиль:</h4>
+    <p><label>Марка автомобиля:</label> {{ car.make }}</p>
+    <p><label>Модель автомобиля:</label> {{ car.model }}</p>
+    <p><label>Год выпуска автомобиля:</label> {{ car.year }}</p>
+    {% if car.description %}
+    <p><label>Описание автомобиля:</label> {{ car.description }}</p>
+    {% endif %}
+    <p><label>Дата обновления:</label> {{ car.updated_at|date:"d M Y H:i" }}</p>
+    <h2>Комментарии</h2>
+    <ul>
+
+        {% for comment in comments %}
+        <li class="comment">
+            <p class="created_at">{{ comment.created_at }}</p> {{ comment.author }}: {{ comment.content }}
+        </li>
+        <hr>
+        {% endfor %}
+
+    </ul>
+
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <br>
+        <button class="btn btn-accept" type="submit">Добавить комментарий</button>
+    </form>
+    {% else %}
+    <p>Пожалуйста, войдите в систему, чтобы оставить комментарий.</p>
+    {% endif %}
+</div>
+{% endblock %}

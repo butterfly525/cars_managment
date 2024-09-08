@@ -1,0 +1,16 @@
+{% extends 'cars_app/layout.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block content %}
+<h1>Регистрация</h1>
+<div class="card">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn-accept" type="submit">Зарегистрироваться</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'cars_app/layout.html' %}
+{% block title %}
+Редактирование автомобиля
+{% endblock %}
+
+{% block content %}
+<h1>Редактирование автомобиля</h1>
+<div class="card">
+    <form method="post" action="{% url 'update_car' pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="action-buttons">
+            <button class="btn btn-accept" type="submit">Сохранить изменения</button>
+            <a class="btn btn-warn" href="{% url 'my_cars' %}">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
