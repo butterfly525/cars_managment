@@ -16,9 +16,6 @@
                 <div>
                     <h3>{{ car.make }} {{ car.model }}</h3>
                     <span class="year">{{ car.year }}</span>
-                    <!-- {% if car.description %}
-                        <p>{{ car.description }}</p>
-                    {% endif %} -->
                     <br>
                     <a href="{% url 'car_detail' pk=car.id %}">Подробнее</a>
                 </div>

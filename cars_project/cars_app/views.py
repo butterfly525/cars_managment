@@ -1,33 +1,35 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .forms import RegisterForm, LoginForm, CarForm, CommentForm
+from .forms import CarForm, CommentForm
 from .api import *
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+
 
 
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = RegisterForm()
+        form = UserCreationForm()
     return render(request, 'cars_app/register.html', {'form': form})
 
 
 def login_view(request):
     if request.method == 'POST':
-        form = LoginForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
             login(request, user)
             return redirect('home')
     else:
-        form = LoginForm()
+        form = AuthenticationForm(request)
+    
     return render(request, 'cars_app/login.html', {'form': form})
+
 
 
 @login_required
@@ -52,11 +54,14 @@ def my_cars(request):
     return render(request, 'cars_app/my_cars.html', {'cars': cars})
 
 
+
+# Создание записи об автомобиле
 def create_car(request):
     if request.method == 'POST':
         form = CarForm(request.POST)
         if form.is_valid():
             car = form.save(commit=False)
+            # Текущий пользователь становится автором записи
             car.owner = request.user
             car.save()
             return redirect('my_cars')
@@ -65,28 +70,26 @@ def create_car(request):
     return render(request, 'cars_app/create_car.html', {'form': form})
 
 
-
+# Обновление записи об автомобиле
 def update_car(request, pk):
     car = Car.objects.get(pk=pk)
-    # Проверяем, является ли пользователь владельцем автомобиля
-    if car.owner != request.user:
-        return render(request, 'cars_app/access_denied.html', {'error': 'У вас нет прав на редактирование этого автомобиля.'})
     if request.method == 'POST':
+        # Проверка на владельца записи об автомобиле
+        if car.owner != request.user:
+            return render(request, 'cars_app/access_denied.html', {'error': 'У вас нет прав на редактирование этого автомобиля.'})
         form = CarForm(request.POST, instance=car)
         if form.is_valid():
-            car = form.save(commit=False)
-            car.owner = request.user
-            car.save()
+            form.save()
             return redirect('my_cars')
     else:
         form = CarForm(instance=car)
     return render(request, 'cars_app/update_car.html', {'form': form, 'pk': pk})
 
 
-
+# Удаление записи об автомобиле
 def delete_car(request, pk):
     car = Car.objects.get(pk=pk)
-    # Проверяем, является ли пользователь владельцем автомобиля
+    # Проверка на владельца записи об автомобиле
     if car.owner != request.user:
         return render(request, 'cars_app/access_denied.html', {'error': 'У вас нет прав на удаление этого автомобиля.'})
     if request.method == 'POST':
@@ -98,7 +101,7 @@ def delete_car(request, pk):
 def car_detail(request, pk):
     car = Car.objects.get(pk=pk)
     car_form = CarForm()
-    comments = car.comments.order_by('-created_at')
+    comments = car.comments.all()
     comment_form = CommentForm()
 
     if request.method == 'POST':
