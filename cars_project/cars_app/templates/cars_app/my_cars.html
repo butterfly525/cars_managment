@@ -28,6 +28,11 @@
     </ul>
     {% else %}
     <p>У вас еще нет автомобилей.</p>
+    {% if user.is_authenticated %}
+    <div class="action-buttons">
+        <a class="btn btn-accept" href="{% url 'create_car' %}">Добавить автомобиль</a>
+    </div>
+    {% endif %}
     {% endif %}
 </div>
 {% endblock %}

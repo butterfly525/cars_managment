@@ -12,7 +12,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return redirect('login_site')
     else:
         form = UserCreationForm()
     return render(request, 'cars_app/register.html', {'form': form})

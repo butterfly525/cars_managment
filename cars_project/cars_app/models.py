@@ -12,8 +12,8 @@ class Car(models.Model):
     model = models.CharField(verbose_name="Модель автомобиля", max_length=30, blank=False)
     year = models.CharField(verbose_name="Год выпуска", max_length=4, blank=False)
     description = models.TextField(verbose_name="Описание автомобиля", blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(verbose_name="Создано", auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name="Обновлено", auto_now=True)
     owner = models.ForeignKey(User, verbose_name="Пользователь", blank=False, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -32,7 +32,7 @@ class Comment(models.Model):
         - внешний ключ к автомобилю, которому принадлежит комментарий, 
         - автор - пользователь, создавший комментарий.'''
     content = models.TextField(verbose_name="Содержание комментария", blank=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(verbose_name="Создано", auto_now_add=True)
     car = models.ForeignKey(Car, verbose_name="Автомобиль", related_name='comments', blank=False, on_delete=models.CASCADE)
     author = models.ForeignKey(User, verbose_name="Автор комментария", blank=False, on_delete=models.CASCADE)
 
@@ -40,6 +40,7 @@ class Comment(models.Model):
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"
         ordering = ["-created_at"]
+
 
 
     def __str__(self):

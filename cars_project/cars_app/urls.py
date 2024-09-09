@@ -4,7 +4,7 @@ from django.urls import path, include, re_path
 
 urlpatterns = [    
     # Основные маршруты
-    path('cars/', views.index, name='index'),
+    path('', views.index, name='index'),
     path('home/', views.home, name='home'),
     
     # Маршруты для аутентификации
