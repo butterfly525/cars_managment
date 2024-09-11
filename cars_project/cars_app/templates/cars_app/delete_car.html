@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block title %}
-Подтвердите удаление автомобиля
+{{title}}
 {% endblock %}
 
 {% block content %}
 
-<h1>Подтвердите удаление автомобиля</h1>
+<h1>{{title}}</h1>
 <div class="card">
     <h4>Автомобиль:</h4>
     <p><strong>Марка автомобиля:</strong> {{ car.make }}</p>
@@ -19,9 +19,9 @@
     <p><strong>Дата обновления:</strong> {{ car.updated_at|date:"d M Y H:i" }}</p>
 
     <div class="action-buttons">
-        <form action="{% url 'delete_car' car.id %}" method="post">
+        <form action="" method="post">
             {% csrf_token %}
-            <input type="hidden" value="DELETE">
+            <input type="hidden" value="{{ object.pk }}">
             <button class="btn btn-accept" type="submit">Удалить</button>
         </form>
         <a class="btn btn-warn" href="{% url 'my_cars' %}">Отмена</a>
