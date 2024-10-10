@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/cars_app
+      - ./media:/cars_app/media
+      - ./static:/cars_app/static
+    environment:
+      - DATABASE_URL=sqlite:///./db.sqlite3
