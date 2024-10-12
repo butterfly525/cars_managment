@@ -1,9 +1,11 @@
 {% extends 'cars_app/layout.html' %}
-
+{% block title %}
+{{title}}
+{% endblock %}
 {% block content %}
-<h1>Добавление нового автомобиля</h1>
+<h1>{{title}}</h1>
 <div class="card">
-    <form method="post" action="{% url 'create_car' %}">
+    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="action-buttons">

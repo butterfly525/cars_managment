@@ -1,0 +1,148 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #f0e4d5;
+    font-family: Times, Times New Roman, serif;
+}
+
+button {
+    font-family: Times, Times New Roman, serif;
+    font-size: 16px;
+    background-color: #adb3c3;
+}
+
+a {
+    text-decoration: none;
+    /* font-size: 16px; */
+}
+
+p {
+    color: #888;
+    margin: 5px 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+small
+span {
+    color: #2E3448;
+}
+ 
+label {
+    font-weight: bold;
+    display: inline-block;
+    width: 200px;   
+}
+
+
+.container {
+    margin: 30px 20%;
+}
+
+/* Стили для навигационного меню */
+.nav-bar {
+    background-color: #2E3448;
+    color: #F6F3EE;
+    font-size: 20px;
+    height: 45px;
+    padding: 10px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.nav-bar a {
+    color: #e6dfd4;
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    color: #ffffff;
+}
+
+
+.btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Стили для кнопок входа/выхода */
+.auth-button {
+    background-color: #4b5163;
+    color: #e6dfd4;
+}
+
+.auth-button:hover {
+    background-color: rgba(116, 131, 122, 0.6)
+}
+
+.btn-accept {
+    background-color: #adb3c3;
+    color: #2E3448;
+}
+
+.btn-accept:hover {
+    background-color: #b9becb;
+}
+
+.btn-warn {
+    background-color: #c3adb8;
+    color: #362e48;
+}
+
+.btn-warn:hover {
+    background-color: #cebbc5;
+}
+
+.card {
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li.car-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+
+hr {
+    margin: 20px 0;
+    border: none;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+.action-buttons{
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.created_at{
+    color: #2e34489d;
+}
+
+.comment{
+    margin: 20px 0;
+}
